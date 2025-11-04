@@ -19,7 +19,10 @@ async function Login(payLoad) {
     const access_token = generateToken({ id: user?.id, role: user?.role }, "access");
     const refresh_token = generateToken({ id: user?.id, role: user?.role }, "refresh");
 
-    return { access_token, refresh_token };
+    const { password: pass, ...userWithoutPassword } = user._doc;
+
+
+    return { access_token, refresh_token, userWithoutPassword };
 }
 
 module.exports = {
