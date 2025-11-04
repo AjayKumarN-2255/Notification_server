@@ -2,7 +2,7 @@ class APIError extends Error {
 
     constructor(status = 404, message = 'Internal server error') {
         super(message);
-        this.status(status)
+        this.status = status;
     }
 
     toJSON() {
