@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken');
+const { STATUS_CODES } = require('../shared/constants/statusCodes');
+const { APIError } = require('../shared/error/APIError');
 
 
 function generateToken(payload, type = "access") {
@@ -18,9 +20,10 @@ function generateToken(payload, type = "access") {
 function verifyToken(token, type) {
     try {
         const secret = type === 'access' ? process.env.access_token_secret : process.env.refresh_token_secret;
-        return jwt.verify(token, secret);
+        const decoded = jwt.verify(token, secret);
+        return decoded;
     } catch (err) {
-        throw err;
+        throw new APIError(STATUS_CODES.UNAUTHORIZED,'Invalid or expired token');
     }
 }
 
