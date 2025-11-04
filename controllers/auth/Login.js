@@ -21,7 +21,7 @@ async function Login(req, res, next) {
             httpOnly: true,
             secure: true,
             sameSite: 'Strict',
-            maxAge: 7 * 24 * 60 * 60 * 1000 
+            maxAge: 7 * 24 * 60 * 60 * 1000
         });
 
         res.status(STATUS_CODES.OK).json({
@@ -29,7 +29,7 @@ async function Login(req, res, next) {
             message: 'Login successful',
             accessToken: access_token
         });
-        
+
     } catch (error) {
         next(error)
     }
