@@ -1,6 +1,8 @@
-const  { addAdmin } = require('./addAdmin'); 
+const { addAdmin } = require('./addAdmin');
+const { getAllAdmins } = require('./getAllAdmins');
 
 
 module.exports = {
-    addAdmin
+    addAdmin,
+    getAllAdmins
 }
