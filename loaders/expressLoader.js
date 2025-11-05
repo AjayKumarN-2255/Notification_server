@@ -1,6 +1,7 @@
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const express = require('express');
+// const path = require('path');
 require('dotenv').config();
 const { bodyParserHandler,
     fourOhFourHandler,
@@ -22,7 +23,16 @@ async function expressLoader(app) {
 
     routerLoader(app);
 
-    app.use(fourOhFourHandler);
+    app.use("/api",fourOhFourHandler);
+
+    // // Serve static files first
+    // app.use(express.static(path.join(__dirname, '../../client/dist')));
+
+    // // Catch-all route for React Router
+    // app.get(/.*/, (req, res) => {
+    //     res.sendFile(path.join(__dirname, '../../client/dist', 'index.html'));
+    // });
+
     app.use(globalErrorHandler);
 }
 

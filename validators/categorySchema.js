@@ -6,10 +6,10 @@ const categorySchema = Joi.object({
         .max(30)
         .required()
         .messages({
-            'string.base': 'Username must be a string',
-            'string.empty': 'Username is required',
-            'string.min': 'Username must be at least 3 characters',
-            'string.max': 'Username must be at most 30 characters'
+            'string.base': 'category name must be a string',
+            'string.empty': 'category name is required',
+            'string.min': 'category name must be at least 3 characters',
+            'string.max': 'category name must be at most 30 characters'
         }),
 });
 
