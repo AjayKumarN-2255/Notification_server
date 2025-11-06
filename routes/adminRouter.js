@@ -6,7 +6,7 @@ const { authenticate, authorizRole } = require('../middleware');
 
 router
     .route('/')
-    .post(authenticate, authorizRole('super-admin'), addAdmin)
+    .post(authenticate, authorizRole('super-admin'), addAdmin);
 
 router
     .route('/')

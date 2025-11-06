@@ -15,19 +15,18 @@ async function Login(req, res, next) {
         return next(new APIError(STATUS_CODES.BAD_REQUEST, error.details[0].message));
     }
     try {
-        const { access_token, refresh_token } = await authService.Login(payload);
+        const { access_token, refresh_token, userWithoutPassword } = await authService.Login(payload);
 
         res.cookie('refreshToken', refresh_token, {
             httpOnly: true,
             secure: true,
-            sameSite: 'Strict',
+            sameSite: 'strict',
             maxAge: 7 * 24 * 60 * 60 * 1000
-        });
-
-        res.status(STATUS_CODES.OK).json({
+        }).status(STATUS_CODES.OK).json({
             success: true,
             message: 'Login successful',
-            accessToken: access_token
+            accessToken: access_token,
+            user: userWithoutPassword
         });
 
     } catch (error) {

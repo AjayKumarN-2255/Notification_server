@@ -23,7 +23,7 @@ async function expressLoader(app) {
 
     routerLoader(app);
 
-    app.use("/api",fourOhFourHandler);
+    app.use("/api", fourOhFourHandler);
 
     // // Serve static files first
     // app.use(express.static(path.join(__dirname, '../../client/dist')));
