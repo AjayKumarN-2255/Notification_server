@@ -39,7 +39,8 @@ async function addNotification(payLoad) {
 
         return savedNotification;
     } catch (error) {
-        throw new APIError('Failed to add notification', STATUS_CODES.INTERNAL_SERVER_ERROR, error);
+        console.log(error)
+        throw new APIError(STATUS_CODES.INTERNAL_SERVER_ERROR, 'Failed to add notification');
     }
 }
 

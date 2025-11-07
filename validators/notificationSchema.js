@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const mongoose = require('mongoose');
 
 const notificationSchema = Joi.object({
     user_id: Joi.string()
@@ -61,6 +62,23 @@ const notificationSchema = Joi.object({
         .messages({
             'date.base': 'Last notification sent must be a valid date',
             'any.required': 'Last notification sent is required'
+        }),
+
+    notify_user_list: Joi.array()
+        .items(
+            Joi.string()
+                .required()
+                .custom((value, helpers) => {
+                    if (!mongoose.Types.ObjectId.isValid(value)) {
+                        return helpers.message(`Invalid user ID: ${value}`);
+                    }
+                    return value;
+                })
+        )
+        .required()
+        .messages({
+            'array.base': 'notify_user_list must be an array',
+            'any.required': 'notify_user_list is required'
         }),
     is_snoozed: Joi.boolean()
         .required()
