@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { fourOhFiveHandler } = require('../shared/error/errorHandler');
-const { addNotification, getUserNotification, snoozeNotification, stopNotification } = require('../controllers/notification');
+const { addNotification, getUserNotification, snoozeNotification, stopNotification, deleteNotification } = require('../controllers/notification');
 const { authenticate, authorizRole } = require('../middleware');
 
 router
@@ -10,7 +10,11 @@ router
 
 router
     .route('/')
-    .get(authenticate, authorizRole("super-admin", "admin"), getUserNotification)
+    .get(authenticate, authorizRole("super-admin", "admin"), getUserNotification);
+
+router
+    .route('/:id')
+    .delete(authenticate, authorizRole("super-admin", "admin"), deleteNotification)
     .all(fourOhFiveHandler);
 
 router
