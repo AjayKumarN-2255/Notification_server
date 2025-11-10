@@ -11,7 +11,7 @@ async function deleteNotification(nId, userId) {
     }
 
     await notification.deleteOne();
-    return notification._id;
+    return { nId: notification._id };
 }
 
 module.exports = {

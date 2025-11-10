@@ -36,6 +36,10 @@ const NotificationSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    notify_before: {
+        type: Number,
+        default: 0
+    },
     notification_frequency: {
         type: Number,
         default: 0

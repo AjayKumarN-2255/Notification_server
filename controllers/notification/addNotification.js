@@ -21,7 +21,7 @@ async function addNotification(req, res, next) {
 
         res.status(STATUS_CODES.CREATED).json({
             success: true,
-            message: 'category created successfully',
+            message: 'notification created successfully',
             data: notification
         });
 
