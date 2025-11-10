@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { fourOhFiveHandler } = require('../shared/error/errorHandler');
-const { addNotification, getUserNotification, snoozeNotification } = require('../controllers/notification');
+const { addNotification, getUserNotification, snoozeNotification, stopNotification } = require('../controllers/notification');
 const { authenticate, authorizRole } = require('../middleware');
 
 router
@@ -16,6 +16,11 @@ router
 router
     .route('/snooze/:id')
     .patch(authenticate, authorizRole("super-admin", "admin"), snoozeNotification)
+    .all(fourOhFiveHandler);
+
+router
+    .route('/stop/:id')
+    .patch(authenticate, authorizRole("super-admin", "admin"), stopNotification)
     .all(fourOhFiveHandler);
 
 module.exports = router;
