@@ -63,7 +63,6 @@ const notificationSchema = Joi.object({
             'date.base': 'Last notification sent must be a valid date',
             'any.required': 'Last notification sent is required'
         }),
-
     notify_user_list: Joi.array()
         .items(
             Joi.string()
@@ -74,10 +73,16 @@ const notificationSchema = Joi.object({
                     }
                     return value;
                 })
+                .messages({
+                    'string.base': 'Each user ID must be a string',
+                    'any.required': 'User ID cannot be empty'
+                })
         )
+        .min(1)
         .required()
         .messages({
             'array.base': 'notify_user_list must be an array',
+            'array.min': 'notify_user_list cannot be empty',
             'any.required': 'notify_user_list is required'
         }),
     is_snoozed: Joi.boolean()
