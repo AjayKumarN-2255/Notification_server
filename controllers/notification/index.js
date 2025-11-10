@@ -1,8 +1,14 @@
 const { addNotification } = require('./addNotification');
-const { getAllNotification } = require('./getAllNotification');
+const { getUserNotification } = require('./getUserNotification');
+const { snoozeNotification } = require('./snoozeNotification');
+const { stopNotification } = require('./stopNotification');
+const { deleteNotification } = require('./deleteNotification');
 
 
 module.exports = {
     addNotification,
-    getAllNotification
+    getUserNotification,
+    snoozeNotification,
+    stopNotification,
+    deleteNotification
 }

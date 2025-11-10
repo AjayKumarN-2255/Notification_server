@@ -1,3 +1,8 @@
+const mongoose = require('mongoose');
+
+function isValidObjectId(id) {
+    return mongoose.Types.ObjectId.isValid(id);
+}
 
 function validateWithSchema(schema, payload) {
     const result = schema.validate(payload);
@@ -5,5 +10,6 @@ function validateWithSchema(schema, payload) {
 }
 
 module.exports = {
-    validateWithSchema
+    validateWithSchema,
+    isValidObjectId
 };

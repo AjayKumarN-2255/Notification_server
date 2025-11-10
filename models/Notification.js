@@ -54,6 +54,7 @@ const NotificationSchema = new mongoose.Schema({
     }
 }, {
     timestamps: true,
+    id: false,
     toJSON: { getters: true },
     toObject: { getters: true }
 });
