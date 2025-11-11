@@ -20,12 +20,13 @@ const notificationSchema = Joi.object({
             'string.empty': 'Description is required',
             'string.base': 'Description must be a string'
         }),
-    category_name: Joi.string()
+    category_names: Joi.array()
         .max(50)
         .required()
         .messages({
-            'string.empty': 'Category name is required',
-            'string.max': 'Category name cannot exceed 50 characters'
+            'array.base': 'category_names must be an array',
+            'array.min': 'category_names cannot be empty',
+            'any.required': 'category_names is required'
         }),
     notification_date: Joi.date()
         .required()

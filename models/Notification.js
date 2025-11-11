@@ -15,8 +15,8 @@ const NotificationSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    category_name: {
-        type: String,
+    category_names: {
+        type: Array,
         maxlength: 50
     },
     notification_date: {

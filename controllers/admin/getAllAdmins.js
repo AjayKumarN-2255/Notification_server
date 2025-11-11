@@ -3,8 +3,9 @@ const { STATUS_CODES } = require('../../shared/constants/statusCodes');
 
 async function getAllAdmins(req, res, next) {
 
+    const userId = req.user.id
     try {
-        const admins = await adminService.getAllAdmins();
+        const admins = await adminService.getAllAdmins(userId);
         res.status(STATUS_CODES.OK).json({
             success: true,
             message: 'Admins fetched successfully',
