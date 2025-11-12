@@ -6,7 +6,8 @@ const notificationService = require('../../services/notification');
 
 
 async function addNotification(req, res, next) {
-    const payLoad = req.body
+    const payLoad = req.body;
+    const userId = req.user.id;
     if (!payLoad) {
         return next(new APIError(STATUS_CODES.BAD_REQUEST, 'Request body is missing or empty'));
     }
@@ -17,7 +18,8 @@ async function addNotification(req, res, next) {
     }
 
     try {
-        const notification = await notificationService.addNotification(payLoad);
+
+        const notification = await notificationService.addNotification(payLoad, userId);
 
         res.status(STATUS_CODES.CREATED).json({
             success: true,

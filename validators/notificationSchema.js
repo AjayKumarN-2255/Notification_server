@@ -2,11 +2,6 @@ const Joi = require('joi');
 const mongoose = require('mongoose');
 
 const notificationSchema = Joi.object({
-    user_id: Joi.string()
-        .required()
-        .messages({
-            'string.empty': 'User ID is required'
-        }),
     title: Joi.string()
         .max(50)
         .required()
@@ -34,12 +29,6 @@ const notificationSchema = Joi.object({
             'date.base': 'Notification date must be a valid date',
             'any.required': 'Notification date is required'
         }),
-    next_notification_date: Joi.date()
-        .required()
-        .messages({
-            'date.base': 'Next notification date must be a valid date',
-            'any.required': 'Next notification date is required'
-        }),
     frequency: Joi.number()
         .required()
         .messages({
@@ -57,12 +46,6 @@ const notificationSchema = Joi.object({
         .messages({
             'number.base': 'Notify before date must be a number',
             'any.required': 'Notify before is required'
-        }),
-    last_notification_sent: Joi.date()
-        .required()
-        .messages({
-            'date.base': 'Last notification sent must be a valid date',
-            'any.required': 'Last notification sent is required'
         }),
     notify_user_list: Joi.array()
         .items(
@@ -85,18 +68,6 @@ const notificationSchema = Joi.object({
             'array.base': 'notify_user_list must be an array',
             'array.min': 'notify_user_list cannot be empty',
             'any.required': 'notify_user_list is required'
-        }),
-    is_snoozed: Joi.boolean()
-        .required()
-        .messages({
-            'boolean.base': 'is_snoozed must be a boolean',
-            'any.required': 'is_snoozed is required'
-        }),
-    is_active: Joi.boolean()
-        .required()
-        .messages({
-            'boolean.base': 'is_active must be a boolean',
-            'any.required': 'is_active is required'
         })
 });
 

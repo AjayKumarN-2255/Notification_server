@@ -8,7 +8,7 @@ const categoryService = require('../../services/category');
 async function addCategory(req, res, next) {
     const payLoad = req.body
     if (!payLoad) {
-        return next(new APIError(STATUS_CODES.BAD_REQUEST,'Request body is missing or empty'));
+        return next(new APIError(STATUS_CODES.BAD_REQUEST, 'Request body is missing or empty'));
     }
 
     const { error } = validateWithSchema(categorySchema, payLoad);
@@ -18,6 +18,9 @@ async function addCategory(req, res, next) {
 
     try {
         const category = await categoryService.addCategory(payLoad);
+        delete category.createdAt;
+        delete category.updatedAt;
+        delete category.__v;
 
         res.status(STATUS_CODES.CREATED).json({
             success: true,

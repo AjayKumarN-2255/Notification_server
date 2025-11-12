@@ -1,33 +1,43 @@
 const Notification = require('../../models/Notification');
 const { APIError } = require('../../shared/error/APIError');
 const { STATUS_CODES } = require('../../shared/constants/statusCodes');
+const { validateNotificationPayload } = require('../../utils/schemaValidation');
 
-async function addNotification(payLoad) {
+async function addNotification(payLoad, userId) {
     try {
         const {
-            user_id,
             title,
             description,
-            category_name,
+            category_names,
             notification_date,
             notify_user_list,
             frequency,
             notification_frequency,
+            notify_before
         } = payLoad;
 
         const is_snoozed = false;
         const is_active = true;
         const last_notification_sent = null;
         const next_notification_date = notification_date;
+        notify_user_list.push(userId);
+
+        validateNotificationPayload({
+            notify_before,
+            notification_date,
+            notification_frequency,
+            frequency
+        });
 
         const newNotification = new Notification({
-            user_id,
+            user_id: userId,
             title,
             description,
-            category_name,
+            category_names,
             notification_date,
             next_notification_date,
             notify_user_list,
+            notify_before,
             frequency,
             notification_frequency,
             last_notification_sent,
@@ -36,10 +46,20 @@ async function addNotification(payLoad) {
         });
 
         const savedNotification = await newNotification.save();
+        const {
+            last_notification_sent: lns,
+            notify_user_list: nul,
+            frequency: f,
+            notification_frequency: nf,
+            user_id,
+            ...neededFields
+        } = savedNotification.toJSON();
 
-        return savedNotification;
+        return neededFields;
     } catch (error) {
-        console.log(error)
+        if (error instanceof APIError) {
+            throw error;
+        }
         throw new APIError(STATUS_CODES.INTERNAL_SERVER_ERROR, 'Failed to add notification');
     }
 }
@@ -47,3 +67,6 @@ async function addNotification(payLoad) {
 module.exports = {
     addNotification
 };
+
+
+//here frequency in month, 1-->1 month , all other in days 
