@@ -1,4 +1,5 @@
 const { app, Loader } = require('./app');
+const { startCrons } = require('./cron/notificationCron');
 
 (async () => {
     Loader();
@@ -7,5 +8,6 @@ const { app, Loader } = require('./app');
 
     app.listen(PORT, () => {
         console.log("Server running successfully on port", PORT);
+        // startCrons();
     });
 })();
