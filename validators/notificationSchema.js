@@ -23,6 +23,18 @@ const notificationSchema = Joi.object({
             'array.min': 'category_names cannot be empty',
             'any.required': 'category_names is required'
         }),
+    notify_before_unit: Joi.string()
+        .valid('Day', 'Week', 'Month')
+        .required()
+        .messages({
+            'any.required': 'notify_before_unit is required',
+            'any.only': 'notify_before_unit must be one of [day, week, month]'
+        }),
+    notific_gap_unit: Joi.string()
+        .required()
+        .messages({
+            'any.required': 'notific_gap_unit is required'
+        }),
     notification_date: Joi.date()
         .required()
         .messages({

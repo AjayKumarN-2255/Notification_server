@@ -28,6 +28,14 @@ const NotificationSchema = new mongoose.Schema({
         type: Date,
         get: val => val ? val.toLocaleDateString('en-GB') : null
     },
+    notify_before_unit: {
+        type: String,
+        enum: ['Day', 'Week', 'Month'],
+        default: 'month'
+    },
+    notific_gap_unit: {
+        type: String,
+    },
     notify_user_list: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

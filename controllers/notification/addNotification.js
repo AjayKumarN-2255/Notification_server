@@ -19,12 +19,10 @@ async function addNotification(req, res, next) {
 
     try {
 
-        const notification = await notificationService.addNotification(payLoad, userId);
-
+        await notificationService.addNotification(payLoad, userId);
         res.status(STATUS_CODES.CREATED).json({
             success: true,
             message: 'notification created successfully',
-            data: notification
         });
 
     } catch (error) {

@@ -23,6 +23,14 @@ function validateNotificationPayload(payload) {
         throw new APIError(STATUS_CODES.BAD_REQUEST, "Notify before must be greater than 0");
     }
 
+    const frequencyInDays = frequency * 30;  
+    if (notify_before >= frequencyInDays) {
+        throw new APIError(
+            STATUS_CODES.BAD_REQUEST,
+            "Notify before cannot be greater than frequency"
+        );
+    }
+
     if (notify_before < notification_frequency) {
         throw new APIError(STATUS_CODES.BAD_REQUEST, "Notification frequency cannot be greater than Notify before");
     }

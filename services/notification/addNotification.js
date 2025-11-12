@@ -13,7 +13,9 @@ async function addNotification(payLoad, userId) {
             notify_user_list,
             frequency,
             notification_frequency,
-            notify_before
+            notify_before,
+            notify_before_unit,
+            notific_gap_unit
         } = payLoad;
 
         const is_snoozed = false;
@@ -39,6 +41,8 @@ async function addNotification(payLoad, userId) {
             notify_user_list,
             notify_before,
             frequency,
+            notify_before_unit,
+            notific_gap_unit,
             notification_frequency,
             last_notification_sent,
             is_snoozed,
@@ -49,7 +53,6 @@ async function addNotification(payLoad, userId) {
         const {
             last_notification_sent: lns,
             notify_user_list: nul,
-            frequency: f,
             notification_frequency: nf,
             user_id,
             ...neededFields
