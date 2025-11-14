@@ -5,7 +5,7 @@ const { STATUS_CODES } = require('../../shared/constants/statusCodes');
 
 async function stopNotification(nId, userId) {
     const notification = await Notification.findOne({ _id: nId, user_id: userId }, `_id title description is_snoozed is_active 
-         notify_before category_names next_notification_date notific_gap_unit notify_before_unit frequency`);
+         notify_before category_names next_notification_date notific_gap_unit notification_frequency notify_before_unit frequency`);
 
     if (!notification) {
         throw new APIError(STATUS_CODES.NOT_FOUND, 'Notification not found or access denied');

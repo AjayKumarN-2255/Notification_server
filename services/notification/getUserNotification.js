@@ -2,7 +2,7 @@ const Notification = require('../../models/Notification');
 
 async function getUserNotification(userId) {
     const notifications = await Notification.find({ user_id: userId }, `_id title description 
-        is_snoozed is_active category_names next_notification_date  notify_before notify_before_unit notific_gap_unit frequency`)
+        is_snoozed is_active category_names next_notification_date notification_frequency  notify_before notify_before_unit notific_gap_unit frequency`)
         .sort({ createdAt: -1 });
     return notifications;
 }
