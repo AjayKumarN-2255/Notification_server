@@ -4,7 +4,7 @@ const { connection } = require('../loaders/dbLoader');
 async function fetchNotification(params) {
     await connection();
 
-    const today = new Date('2025-11-30')
+    const today = new Date('2025-11-27')
     const notifications = await Notification.find({
         is_active: true, is_snoozed: false,
         $expr: {
@@ -61,8 +61,8 @@ async function fetchNotification(params) {
                                                 unit: {
                                                     $switch: {
                                                         branches: [
-                                                            { case: { $eq: ["$notific_gap_unit", "Month"] }, then: "month" },   
-                                                            { case: { $eq: ["$notific_gap_unit", "Week"] }, then: "week" },   
+                                                            { case: { $eq: ["$notific_gap_unit", "Month"] }, then: "month" },
+                                                            { case: { $eq: ["$notific_gap_unit", "Week"] }, then: "week" },
                                                             { case: { $eq: ["$notific_gap_unit", "Day"] }, then: "day" }
                                                         ],
                                                         default: "day"
@@ -86,9 +86,9 @@ async function fetchNotification(params) {
     return notifications;
 }
 
-// fetchNotification().then((res) => {
-//     console.log(res);
-// })
+fetchNotification().then((res) => {
+    console.log(res);
+})
 
 // async function updateLastSendDate(params) {
 
@@ -99,9 +99,40 @@ async function fetchNotification(params) {
 // }
 
 
-// async function updateNotification(params) {
+async function updateNotification() {
+    await connection();
+    const today = new Date("2026-02-28");
+    await Notification.updateMany(
+        {
+            $expr: {
+                $eq: [
+                    { $dateTrunc: { date: today, unit: "day" } },
+                    { $dateTrunc: { date: "$next_notification_date", unit: "day" } }
+                ]
+            }
+        },
+        [
+            {
+                $set: {
+                    is_snoozed: false,
+                    last_notification_sent: null,
+                    next_notification_date: {
+                        $dateAdd: {
+                            startDate: "$next_notification_date",
+                            unit: "month",
+                            amount: "$frequency"
+                        }
+                    }
+                }
+            }
+        ],
+    )
+    console.log("notification date updated successfully");
+}
 
-// }
+// updateNotification().then((res) => {
+//     console.log(res)
+// })
 
 
 module.exports = {
