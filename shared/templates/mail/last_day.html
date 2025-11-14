@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f6fa;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        h2 {
+            color: #d32f2f;
+            text-align: center;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .note {
+            background-color: #ffe6e6;
+            border-left: 5px solid #d32f2f;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .footer {
+            font-size: 14px;
+            color: #777;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>{{title}}</h2>
+        <p>Hi <strong>{{username}}</strong>,</p>
+        <p>{{description}}</p>
+        <p class="note">This is your final reminder. Please take action today.</p>
+        <div class="footer">
+            Best regards,<br>Your Team
+        </div>
+    </div>
+</body>
+
+</html>

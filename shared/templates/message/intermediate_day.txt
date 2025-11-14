@@ -1,0 +1,12 @@
+{{title}}
+
+Hi {{username}},
+
+{{description}}
+
+This is a friendly reminder leading up to {{next_notification_date}}.
+
+Take Action: {{action_link}}
+
+Best regards,
+Your Team

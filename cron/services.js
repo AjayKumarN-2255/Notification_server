@@ -101,7 +101,7 @@ async function fetchNotification(retries = 3, delay = 2000) {
 //     console.log(res);
 // })
 
-async function updateLastSendDate(notificIds, retries = 3, delay = 1000) {
+async function updateLastSendDate(notificIds, retries = 3, delay = 2000) {
     try {
         await connection();
 
@@ -139,7 +139,7 @@ async function updateLastSendDate(notificIds, retries = 3, delay = 1000) {
 // }
 
 
-async function updateNotification(retries = 3, delay = 1000) {
+async function updateNotification(retries = 3, delay = 2000) {
     try {
         await connection();
         const today = new Date("2026-02-23");

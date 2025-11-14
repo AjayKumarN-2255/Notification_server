@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f6fa;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        h2 {
+            color: #1976d2;
+            text-align: center;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .note {
+            background-color: #e3f2fd;
+            border-left: 5px solid #1976d2;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .footer {
+            font-size: 14px;
+            color: #777;
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>{{title}}</h2>
+        <p>Hi <strong>{{username}}</strong>,</p>
+        <p>{{description}}</p>
+        <p class="note">This is a friendly reminder leading up to <strong>{{next_notification_date}}</strong>.</p>
+        <div class="footer">
+            Best regards,<br>Your Team
+        </div>
+    </div>
+</body>
+
+</html>

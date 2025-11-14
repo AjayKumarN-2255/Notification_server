@@ -1,0 +1,12 @@
+{{title}}
+
+Hi {{username}},
+
+{{description}}
+
+Note: This is your final reminder. Please take action today.
+
+Take Action: {{action_link}}
+
+Best regards,
+Your Team
