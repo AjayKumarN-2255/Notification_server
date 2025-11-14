@@ -1,6 +1,5 @@
 
-
-async function sendMail(params) {
+async function sendMail(template) {
 
 }
 

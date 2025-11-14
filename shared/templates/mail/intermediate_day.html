@@ -41,6 +41,22 @@
             font-weight: bold;
         }
 
+        .categories {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #f0f4f8;
+            border-radius: 5px;
+        }
+
+        .categories ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .categories li {
+            margin-bottom: 5px;
+        }
+
         .footer {
             font-size: 14px;
             color: #777;
@@ -56,6 +72,17 @@
         <p>Hi <strong>{{username}}</strong>,</p>
         <p>{{description}}</p>
         <p class="note">This is a friendly reminder leading up to <strong>{{next_notification_date}}</strong>.</p>
+
+        <!-- Category List -->
+        <div class="categories">
+            <strong>Categories:</strong>
+            <ul>
+                {{#each categories}}
+                    <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+
         <div class="footer">
             Best regards,<br>Your Team
         </div>

@@ -41,13 +41,37 @@
             font-weight: bold;
         }
 
+        .categories {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #fff0f0;
+            border-radius: 5px;
+        }
+
+        .categories ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .categories li {
+            margin-bottom: 5px;
+        }
+
+        .next-date {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #fff5f5;
+            border-left: 5px solid #d32f2f;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
         .footer {
             font-size: 14px;
             color: #777;
             text-align: center;
             margin-top: 30px;
         }
-
     </style>
 </head>
 
@@ -57,6 +81,17 @@
         <p>Hi <strong>{{username}}</strong>,</p>
         <p>{{description}}</p>
         <p class="note">This is your final reminder. Please take action today.</p>
+
+        <!-- Category List -->
+        <div class="categories">
+            <strong>Categories:</strong>
+            <ul>
+                {{#each categories}}
+                    <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+
         <div class="footer">
             Best regards,<br>Your Team
         </div>

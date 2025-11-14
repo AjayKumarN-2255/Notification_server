@@ -4,7 +4,14 @@ Hi {{username}},
 
 {{description}}
 
-Note: This is your final reminder. Please take action today.
+This is your final reminder. Please take action today.
+
+Categories:
+{{#each categories}}
+- {{this}}
+{{/each}}
+
+Next Notification Date: {{next_notification_date}}
 
 Take Action: {{action_link}}
 

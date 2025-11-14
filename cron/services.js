@@ -83,7 +83,7 @@ async function fetchNotification(retries = 3, delay = 2000) {
             }
         },
             'title description category_names notify_user_list next_notification_date'
-        ).populate('notify_user_list');
+        ).populate('notify_user_list', '-_id username email phone').lean();
         return notifications;
     } catch (error) {
         console.error('Error fetching notifications:', error.message);
@@ -143,7 +143,7 @@ async function updateNotification(retries = 3, delay = 2000) {
     try {
         await connection();
         const today = new Date("2026-02-23");
-     
+
         await Notification.updateMany(
             {
                 $expr: {
@@ -182,9 +182,9 @@ async function updateNotification(retries = 3, delay = 2000) {
     }
 }
 
-updateNotification().then((res) => {
-    console.log(res)
-})
+// updateNotification().then((res) => {
+//     console.log(res)
+// })
 
 
 module.exports = {
