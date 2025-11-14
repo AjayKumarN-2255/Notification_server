@@ -26,8 +26,10 @@ async function addNotification(payLoad, userId) {
 
         validateNotificationPayload({
             notify_before,
+            notify_before_unit,
             notification_date,
             notification_frequency,
+            notific_gap_unit,
             frequency
         });
 

@@ -86,9 +86,9 @@ async function fetchNotification(params) {
     return notifications;
 }
 
-fetchNotification().then((res) => {
-    console.log(res);
-})
+// fetchNotification().then((res) => {
+//     console.log(res);
+// })
 
 // async function updateLastSendDate(params) {
 
