@@ -11,8 +11,6 @@ Categories:
 - {{this}}
 {{/each}}
 
-Next Notification Date: {{next_notification_date}}
-
 Take Action: {{action_link}}
 
 Best regards,

@@ -1,14 +1,14 @@
 const cron = require('node-cron');
-const { fetchNotification } = require('./services');
+const { processNotification } = require('./processNotific');
 
 let notificationCron;
-console.log("this running on importing ")
 const startCrons = () => {
     if (!notificationCron) {
         notificationCron = cron.schedule(
-            '* * * * * *',
+            '0 0 13 * * *',
             async () => {
-                await fetchNotification();
+                console.log('Running daily job at 1 PM');
+                await processNotification();
             },
             {
                 scheduled: false,

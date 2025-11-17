@@ -8,6 +8,6 @@ const { startCrons } = require('./cron/notificationCron');
 
     app.listen(PORT, () => {
         console.log("Server running successfully on port", PORT);
-        // startCrons();
+        startCrons();
     });
 })();
