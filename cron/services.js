@@ -7,7 +7,7 @@ const { connection } = require('../loaders/dbLoader');
 async function fetchNotification(retries = 3, delay = 2000) {
     await connection();
     try {
-        const today = new Date('2026-01-30')
+        const today = new Date('2025-11-27')
 
         const notifications = await Notification.find({
             is_active: true, is_snoozed: false,

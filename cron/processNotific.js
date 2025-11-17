@@ -1,5 +1,8 @@
 const { fetchNotification, sendNotification, updateLastSendDate, updateNotification, saveNotificationLogs } = require('./services');
 const { loadMailTemplate, loadMsgTemplate } = require('../shared/templates/mailTemplateHandler');
+const pLimit = require('p-limit').default;
+const notificLimit = pLimit(2);
+const userLimit = pLimit(5);
 
 const Handlebars = require('handlebars');
 
@@ -30,29 +33,35 @@ async function processNotification() {
         const inter_day_msg_template = loadMsgTemplate('intermediate_day.txt');
 
         const nRes = await Promise.all(
-            notifications.map(async (noti) => {
-                return await Promise.all(
-                    noti.notify_user_list.map(async (user) => {
-                        const data = {
-                            title: noti.title,
-                            username: user.username,
-                            description: noti.description,
-                            categories: noti.category_names
-                        };
-                        const isLastDay = compateDatewithToday(noti.next_notification_date)
-                        if (!isLastDay) {
-                            const nextDate = new Date(noti.next_notification_date);
-                            data.next_notification_date = nextDate.toDateString();
-                        }
-                        const mailTemplate = Handlebars.compile(isLastDay ? last_day_mail_template : inter_day_mail_template)(data);
-                        const msgTemplate = Handlebars.compile(isLastDay ? last_day_msg_template : inter_day_msg_template)(data);
-                        const result = await sendNotification(mailTemplate, msgTemplate, user?.email, user?.phone, user?._id);
-                        return result;
-                    })
-                )
-            })
+            notifications.map(noti =>
+                notificLimit(async () => {
+                    return await Promise.all(
+                        noti.notify_user_list.map(user =>
+                            userLimit(async () => {
+                                const data = {
+                                    title: noti.title,
+                                    username: user.username,
+                                    description: noti.description,
+                                    categories: noti.category_names
+                                };
+                                const isLastDay = compateDatewithToday(noti.next_notification_date);
+                                if (!isLastDay) {
+                                    data.next_notification_date = new Date(noti.next_notification_date).toDateString();
+                                }
+                                const mailTemplate = Handlebars.compile(
+                                    isLastDay ? last_day_mail_template : inter_day_mail_template
+                                )(data);
+                                const msgTemplate = Handlebars.compile(
+                                    isLastDay ? last_day_msg_template : inter_day_msg_template
+                                )(data);
+                                return await sendNotification(mailTemplate, msgTemplate, user.email, user.phone, user._id);
+                            })
+                        )
+                    );
+                })
+            )
         );
-
+        console.log(nRes);
         await saveNotificationLogs(notificatonIds, nRes);
         await updateLastSendDate(notificatonIds);
     } catch (error) {
@@ -63,7 +72,7 @@ async function processNotification() {
 
 }
 
-// processNotification()
+processNotification()
 
 module.exports = {
     processNotification
