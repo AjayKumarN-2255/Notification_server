@@ -6,7 +6,8 @@ async function getUserNotification(req, res, next) {
     try {
         const userId = req.user.id;
         const categories = req.query['categories[]'] || [];
-        const notifications = await notificationService.getUserNotification(userId,categories);
+        const searchTerm = req.query.searchTerm;
+        const notifications = await notificationService.getUserNotification(userId, categories, searchTerm);
         res.status(STATUS_CODES.OK).json({
             success: true,
             message: 'notifications fetched successfully',
