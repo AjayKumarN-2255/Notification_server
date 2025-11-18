@@ -247,7 +247,7 @@ async function updateNotification(retries = 3, delay = 2000) {
 // })
 
 
-async function sendNotification(mailTemp, msgTemp, email, phone, userId) {
+async function sendNotification(data, isLastDay, email, phone, userId) {
 
     const result = {
         userId,
@@ -256,10 +256,10 @@ async function sendNotification(mailTemp, msgTemp, email, phone, userId) {
         emailError: null,
         msgError: null
     }
-
     try {
-        const randomInt = Math.floor(Math.random() * 10) + 1;
-        const emailRes = await sendMail(mailTemp, email, randomInt);
+        console.log("send email this time");
+        const emailRes = await sendMail(data, isLastDay, email);
+        console.log(emailRes);
     } catch (error) {
         result.emailStatus = "Failed";
         result.emailError = error.message;
