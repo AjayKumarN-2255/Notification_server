@@ -7,7 +7,6 @@ const authService = require('../../services/auth');
 
 async function Login(req, res, next) {
     const payload = req.body;
-    console.log(payload)
     if (!payload) {
         return next(new APIError(STATUS_CODES.BAD_REQUEST, 'Request body is missing or empty'));
     }
@@ -17,6 +16,7 @@ async function Login(req, res, next) {
     }
     try {
         const { access_token, refresh_token, userWithoutPassword } = await authService.Login(payload);
+
         res.cookie('refreshToken', refresh_token, {
             httpOnly: true,
             secure: true,
@@ -30,8 +30,7 @@ async function Login(req, res, next) {
         });
 
     } catch (error) {
-        next(error);
-        console.log(error)
+        next(error)
     }
 }
 
