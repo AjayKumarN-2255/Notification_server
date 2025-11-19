@@ -6,12 +6,12 @@ const userLimit = pLimit(5);
 
 
 function compateDatewithToday(date) {
-    const today = new Date();
+    const today = new Date('2025-11-27');
     today.setHours(0, 0, 0, 0);
 
     const nextNotification = new Date(date);
     nextNotification.setHours(0, 0, 0, 0);
-    return today === nextNotification;
+    return today.getTime() === nextNotification.getTime();
 }
 
 async function processNotification() {
@@ -19,6 +19,7 @@ async function processNotification() {
     try {
         const notifications = await fetchNotification();
         const notificatonIds = notifications.map((noti) => noti._id);
+        console.log(notificatonIds)
 
         if (!notifications || notifications.length === 0) {
             console.log("No notifications to process");
@@ -27,10 +28,10 @@ async function processNotification() {
 
         const nRes = await Promise.all(
             notifications.map(noti =>
-                notificLimit(() => 
+                notificLimit(() =>
                     Promise.all(
                         noti.notify_user_list.map(user =>
-                            userLimit(async () => { 
+                            userLimit(async () => {
                                 const data = {
                                     title: noti.title,
                                     username: user.username,
@@ -42,8 +43,7 @@ async function processNotification() {
                                 if (!isLastDay) {
                                     data.next_notification_date = new Date(noti.next_notification_date).toDateString();
                                 }
-
-                                return await sendNotification(data,isLastDay,user.email,user.phone,user._id);
+                                return await sendNotification(data, isLastDay, user.email, user.phone, user._id);
                             })
                         )
                     )

@@ -1,5 +1,5 @@
 const { app, Loader } = require('./app');
-const { startCrons } = require('./cron/notificationCron');
+// const { startCrons } = require('./cron/notificationCron');
 
 (async () => {
     Loader();
