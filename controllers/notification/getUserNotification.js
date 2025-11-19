@@ -9,7 +9,8 @@ async function getUserNotification(req, res, next) {
         const searchTerm = req.query.searchTerm;
         const from = req.query.from;
         const to = req.query.to;
-        const notifications = await notificationService.getUserNotification(userId, categories, searchTerm, from, to);
+        const Query = { userId, categories, searchTerm, from, to };
+        const notifications = await notificationService.getUserNotification(Query);
         res.status(STATUS_CODES.OK).json({
             success: true,
             message: 'notifications fetched successfully',

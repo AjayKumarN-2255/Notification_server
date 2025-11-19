@@ -1,7 +1,7 @@
 const Notification = require('../../models/Notification');
 
-async function getUserNotification(userId, categories, searchTerm, from, to) {
-
+async function getUserNotification(Query) {
+    const { userId, categories, searchTerm, from, to } = Query;
     let fromDate;
     let toDate;
     if (from) {
