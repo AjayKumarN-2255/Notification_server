@@ -46,7 +46,7 @@ async function sendMail(data, isLastDay, email, retry = 3, delay = 2000) {
             return await sendMail(data, isLastDay, email, retry - 1, delay);
         } else {
             console.log("All retries failed for", email);
-            return false;
+            throw error;
         }
     }
 

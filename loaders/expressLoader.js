@@ -25,12 +25,10 @@ async function expressLoader(app) {
 
     app.use("/api", fourOhFourHandler);
 
-    // // Serve static files first
-    // app.use(express.static(path.join(__dirname, '../../client/dist')));
+    // app.use(express.static(path.join(__dirname, '../dist')));
 
-    // // Catch-all route for React Router
     // app.get(/.*/, (req, res) => {
-    //     res.sendFile(path.join(__dirname, '../../client/dist', 'index.html'));
+    //     res.sendFile(path.join(__dirname, '../dist', 'index.html'));
     // });
 
     app.use(globalErrorHandler);

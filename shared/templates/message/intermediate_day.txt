@@ -6,12 +6,6 @@ Hi {{username}},
 
 This is a friendly reminder leading up to {{next_notification_date}}.
 
-Categories:
-{{#each categories}}
-- {{this}}
-{{/each}}
-
-Take Action: {{action_link}}
 
 Best regards,
 Your Team

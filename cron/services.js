@@ -2,10 +2,8 @@ const Notification = require('../models/Notification');
 const NotificationLog = require('../models/NotificationLog');
 const { sendMail } = require('../utils/mailer');
 const { sendMessage } = require('../utils/message');
-const { connection } = require('../loaders/dbLoader');
 
 async function fetchNotification(retries = 3, delay = 2000) {
-    await connection();
     try {
         const today = new Date('2025-11-27')
 
@@ -100,14 +98,8 @@ async function fetchNotification(retries = 3, delay = 2000) {
     }
 }
 
-// fetchNotification().then((res) => {
-//     console.log(res);
-// })
-
 async function updateLastSendDate(notificIds, retries = 3, delay = 2000) {
     try {
-        await connection();
-
         const today = new Date();
 
         const result = await Notification.updateMany(
@@ -131,11 +123,6 @@ async function updateLastSendDate(notificIds, retries = 3, delay = 2000) {
         throw new Error('Failed to update last_notification_sent');
     }
 }
-
-// const notificIds = ['691704662c86fe6cc45d917f', '6916f6ab2c225cced833dfc9'];
-// updateLastSendDate(notificIds).then((res) => {
-
-// })
 
 async function retryInsertMany(logs, maxRetries = 3, delayMs = 2000) {
     try {
@@ -201,8 +188,7 @@ async function saveNotificationLogs(notificIds, nRes) {
 
 async function updateNotification(retries = 3, delay = 2000) {
     try {
-        await connection();
-        const today = new Date("2026-01-30");
+        const today = new Date("2026-01-01");
 
         await Notification.updateMany(
             {
@@ -242,10 +228,6 @@ async function updateNotification(retries = 3, delay = 2000) {
     }
 }
 
-// updateNotification().then((res) => {
-//     console.log(res)
-// })
-
 
 async function sendNotification(data, isLastDay, email, phone, userId) {
 
@@ -256,19 +238,23 @@ async function sendNotification(data, isLastDay, email, phone, userId) {
         emailError: null,
         msgError: null
     }
+
     try {
         console.log("send email this time");
         const emailRes = await sendMail(data, isLastDay, email);
-        console.log(emailRes);
+        console.log("email success:", emailRes);
     } catch (error) {
+        console.log("email success:", false);
         result.emailStatus = "Failed";
         result.emailError = error.message;
     }
 
     try {
-        const randomInt = Math.floor(Math.random() * 10) + 1;
-        const msgRes = await sendMessage(msgTemp, phone, randomInt);
+        console.log("send message this time");
+        const msgRes = await sendMessage(data, isLastDay, phone);
+        console.log("message success:", msgRes);
     } catch (error) {
+        console.log("message success:", false);
         result.msgStatus = "Failed";
         result.msgError = error.message;
     }

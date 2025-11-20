@@ -19,7 +19,6 @@ async function processNotification() {
     try {
         const notifications = await fetchNotification();
         const notificatonIds = notifications.map((noti) => noti._id);
-        console.log(notificatonIds)
 
         if (!notifications || notifications.length === 0) {
             console.log("No notifications to process");
@@ -50,7 +49,7 @@ async function processNotification() {
                 )
             )
         );
-        console.log(nRes);
+
         await saveNotificationLogs(notificatonIds, nRes);
         await updateLastSendDate(notificatonIds);
     } catch (error) {
@@ -61,7 +60,6 @@ async function processNotification() {
 
 }
 
-processNotification()
 
 module.exports = {
     processNotification

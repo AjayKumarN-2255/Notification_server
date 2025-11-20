@@ -1,16 +1,58 @@
+const axios = require('axios');
 
+async function sendMessage(data, isLastDay, phone, retries = 3) {
+    const template_name = isLastDay ? 'final_reminder_v2' : 'intermediate_day_v4';
+    const parameters = [
+        { type: "text", text: data.title },
+        { type: "text", text: data.username },
+        { type: "text", text: data.description }
+    ];
 
-async function sendMessage(msgTemp, phone, ind) {
-    if ([3, 7, 1, 10, 5].includes(ind)) {
-        console.log(`send message to ${phone} failed`);
-        throw new Error(`Failed to send message to ${phone} at index ${ind}`);
+    if (!isLastDay && data.next_notification_date) {
+        parameters.push({ type: "text", text: data.next_notification_date });
     }
 
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    console.log(`send message to ${phone} successfuly`);
-    return true;
+    const messageBody = {
+        messaging_product: "whatsapp",
+        to: `91${phone}`,
+        type: "template",
+        template: {
+            name: template_name,
+            language: { code: "en_US" },
+            components: [
+                { type: "body", parameters }
+            ]
+        }
+    };
+
+    try {
+        const response = await axios.post(
+            `https://graph.facebook.com/${process.env.WA_API_VERSION}/${process.env.PHONE_NUMBER_ID}/messages`,
+            messageBody,
+            {
+                headers: {
+                    'Authorization': `Bearer ${process.env.WA_PERMANENT_ACCESS_TOKEN}`,
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+
+        console.log('WhatsApp Response:', response.data.messages[0].status);
+        return true;
+
+    } catch (error) {
+        console.error('Error sending WhatsApp message:', error.response?.data || error.message);
+
+        if (retries > 0) {
+            console.log(`Retrying... attempts left: ${retries}`);
+            return sendMessage(data, isLastDay, phone, retries - 1);
+        } else {
+            console.error('All retries failed.');
+            throw error;
+        }
+    }
 }
 
 module.exports = {
     sendMessage
-}
+};

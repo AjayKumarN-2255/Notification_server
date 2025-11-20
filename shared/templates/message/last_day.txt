@@ -6,12 +6,6 @@ Hi {{username}},
 
 This is your final reminder. Please take action today.
 
-Categories:
-{{#each categories}}
-- {{this}}
-{{/each}}
-
-Take Action: {{action_link}}
 
 Best regards,
 Your Team

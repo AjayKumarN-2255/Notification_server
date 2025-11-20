@@ -1,14 +1,14 @@
 const cron = require('node-cron');
-// const { processNotification } = require('./processNotific');
+const { processNotification } = require('./processNotific');
 
 let notificationCron;
-const startCrons = () => {
+const startCrons = async () => {
     if (!notificationCron) {
         notificationCron = cron.schedule(
-            '0 26 14 * * *',
+            '0 55 17 * * *',
             async () => {
-                console.log('Running daily job at 2:16 PM');
-                // await processNotification();
+    console.log('Running daily job at 5:55 PM');
+    await processNotification();
             },
             {
                 scheduled: false,
@@ -17,6 +17,7 @@ const startCrons = () => {
     }
     notificationCron.start();
 };
+
 
 const stopCrons = () => {
     if (notificationCron) {
