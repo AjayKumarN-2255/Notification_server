@@ -46,10 +46,8 @@ async function sendMessage(data, isLastDay, phone, retries = 3) {
         if (retries > 0) {
             console.log(`Retrying... attempts left: ${retries}`);
             return sendMessage(data, isLastDay, phone, retries - 1);
-        } else {
-            console.error('All retries failed.');
-            throw error;
         }
+        throw error;
     }
 }
 

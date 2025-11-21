@@ -23,6 +23,18 @@
             padding: 30px;
         }
 
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #ececec;
+        }
+
+        .header img {
+            width: 120px;
+            /* Adjust as needed */
+            margin-bottom: 10px;
+        }
+
         h2 {
             color: #d32f2f;
             text-align: center;
@@ -36,26 +48,9 @@
         .note {
             background-color: #ffe6e6;
             border-left: 5px solid #d32f2f;
-            padding: 15px;
+            padding: 2px;
             border-radius: 5px;
             font-weight: bold;
-        }
-
-        .categories {
-            margin-top: 20px;
-            padding: 10px 15px;
-            background-color: #fff0f0;
-            border-radius: 5px;
-        }
-
-        .categories ul {
-            padding-left: 20px;
-            margin: 0;
-            margin-top: 5px;
-        }
-
-        .categories li {
-            margin-bottom: 5px;
         }
 
         .next-date {
@@ -78,22 +73,20 @@
 
 <body>
     <div class="container">
+
+        <!-- Header + Logo -->
+        <div class="header">
+            <img src="https://res.cloudinary.com/dd6vjeu1z/image/upload/v1763725523/midnay-site-logo_wgifqp.png" 
+     alt="Company Logo" 
+     width="120" 
+     style="display:block; margin:0 auto;">
+        </div>
         <h2>{{title}}</h2>
+
         <p>Hi <strong>{{username}}</strong>,</p>
         <p>{{description}}</p>
-        <b class="note">This is your final reminder. Please take action today.</b>
-        <p></p>
-        <p></p>
-        <br>
-        <!-- Category List -->
-        <div class="categories">
-            <strong>Categories:</strong>
-            <ul>
-                {{#each categories}}
-                    <li>{{this}}</li>
-                {{/each}}
-            </ul>
-        </div>
+
+        <p class="note">This is your final reminder. Please take action today.</p>
 
         <div class="footer">
             Best regards,<br>Your Team

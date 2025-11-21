@@ -23,6 +23,20 @@
             padding: 30px;
         }
 
+        /* Header Block */
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e6e9ef;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            width: 120px;
+            /* Adjust size if needed */
+            margin-bottom: 10px;
+        }
+
         h2 {
             color: #1976d2;
             text-align: center;
@@ -41,22 +55,6 @@
             font-weight: bold;
         }
 
-        .categories {
-            margin-top: 20px;
-            padding: 10px 15px;
-            background-color: #f0f4f8;
-            border-radius: 5px;
-        }
-
-        .categories ul {
-            padding-left: 20px;
-            margin: 0;
-        }
-
-        .categories li {
-            margin-bottom: 5px;
-        }
-
         .footer {
             font-size: 14px;
             color: #777;
@@ -68,20 +66,19 @@
 
 <body>
     <div class="container">
-        <h2>{{title}}</h2>
-        <p>Hi <strong>{{username}}</strong>,</p>
-        <p>{{description}}</p>
-        <p class="note">This is a friendly reminder leading up to <strong>{{next_notification_date}}</strong>.</p>
 
-        <!-- Category List -->
-        <div class="categories">
-            <strong>Categories:</strong>
-            <ul>
-                {{#each categories}}
-                    <li>{{this}}</li>
-                {{/each}}
-            </ul>
+        <!-- Header and Logo -->
+        <div class="header">
+          <img src="https://res.cloudinary.com/dd6vjeu1z/image/upload/v1763725523/midnay-site-logo_wgifqp.png" alt="companyLogo"/>
         </div>
+
+        <h2>{{title}}</h2>
+
+        <p>Hi <strong>{{username}}</strong>,</p>
+
+        <p>{{description}}</p>
+
+        <p class="note">This is a friendly reminder leading up to <strong>{{next_notification_date}}</strong>.</p>
 
         <div class="footer">
             Best regards,<br>Your Team

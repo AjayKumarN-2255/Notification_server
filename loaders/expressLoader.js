@@ -1,7 +1,7 @@
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const express = require('express');
-// const path = require('path');
+const path = require('path');
 require('dotenv').config();
 const { bodyParserHandler,
     fourOhFourHandler,
@@ -24,8 +24,8 @@ async function expressLoader(app) {
     routerLoader(app);
 
     app.use("/api", fourOhFourHandler);
-
-    // app.use(express.static(path.join(__dirname, '../dist')));
+    
+    app.use(express.static(path.join(__dirname, '..', 'images')));
 
     // app.get(/.*/, (req, res) => {
     //     res.sendFile(path.join(__dirname, '../dist', 'index.html'));
