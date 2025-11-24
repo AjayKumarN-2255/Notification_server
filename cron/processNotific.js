@@ -6,7 +6,7 @@ const userLimit = pLimit(5);
 
 
 function compateDatewithToday(date) {
-    const today = new Date('2025-11-27');
+    const today = new Date();
     today.setHours(0, 0, 0, 0);
 
     const nextNotification = new Date(date);
