@@ -1,12 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const { fourOhFiveHandler } = require('../shared/error/errorHandler');
-const { addAdmin, getAllAdmins } = require('../controllers/admin');
+const { addAdmin, getAllAdmins, editAdmin } = require('../controllers/admin');
 const { authenticate, authorizRole } = require('../middleware');
 
 router
     .route('/')
     .post(authenticate, authorizRole('super-admin'), addAdmin);
+
+router
+    .route('/:id')
+    .patch(authenticate, authorizRole('super-admin'), editAdmin);
 
 router
     .route('/')

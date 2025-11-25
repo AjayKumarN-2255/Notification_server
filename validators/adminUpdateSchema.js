@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const userLoginSchema = Joi.object({
+const userEditSchema = Joi.object({
     username: Joi.string()
         .min(3)
         .max(30)
@@ -11,7 +11,7 @@ const userLoginSchema = Joi.object({
             'string.min': 'Username must be at least 3 characters',
             'string.max': 'Username must be at most 30 characters'
         }),
-    
+
     email: Joi.string()
         .email()
         .required()
@@ -19,7 +19,7 @@ const userLoginSchema = Joi.object({
             'string.email': 'Email must be a valid email address',
             'string.empty': 'Email is required'
         }),
-    
+
     phone: Joi.string()
         .pattern(/^[0-9]{10}$/)
         .required()
@@ -27,14 +27,6 @@ const userLoginSchema = Joi.object({
             'string.pattern.base': 'Phone number must be 10 digits',
             'string.empty': 'Phone number is required'
         }),
-
-    password: Joi.string()
-        .min(6)
-        .required()
-        .messages({
-            'string.min': 'Password must be at least 6 characters',
-            'string.empty': 'Password is required'
-        })
 });
 
-module.exports = userLoginSchema;
+module.exports = userEditSchema;
