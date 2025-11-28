@@ -5,9 +5,9 @@ let notificationCron;
 const startCrons = async () => {
     if (!notificationCron) {
         notificationCron = cron.schedule(
-            '0 13 19 * * *',
+            '0 0 9 * * *',
             async () => {
-    console.log('Running daily job at 5:55 PM');
+    console.log('Running daily job at  9:00 AM');
     await processNotification();
             },
             {
