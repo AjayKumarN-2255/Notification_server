@@ -60,27 +60,12 @@ const notificationSchema = Joi.object({
             'any.required': 'Notify before is required'
         }),
     notify_user_list: Joi.array()
-        .items(
-            Joi.string()
-                .required()
-                .custom((value, helpers) => {
-                    if (!mongoose.Types.ObjectId.isValid(value)) {
-                        return helpers.message(`Invalid user ID: ${value}`);
-                    }
-                    return value;
-                })
-                .messages({
-                    'string.base': 'Each user ID must be a string',
-                    'any.required': 'User ID cannot be empty'
-                })
-        )
-        .min(1)
         .required()
         .messages({
             'array.base': 'notify_user_list must be an array',
-            'array.min': 'notify_user_list cannot be empty',
             'any.required': 'notify_user_list is required'
         })
+
 });
 
 module.exports = notificationSchema;
