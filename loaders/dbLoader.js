@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-// process.env.MONGO_URL
+
 async function connection() {
     try {
-        await mongoose.connect('mongodb://localhost:27017/Notification');
+        await mongoose.connect(process.env.MONGO_URL);
         console.log("database connected successfully");
     } catch (error) {
         console.log(error)
