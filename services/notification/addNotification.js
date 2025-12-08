@@ -22,7 +22,6 @@ async function addNotification(payLoad, userId) {
         const is_active = true;
         const last_notification_sent = null;
         const next_notification_date = notification_date;
-        notify_user_list.push(userId);
 
         validateNotificationPayload({
             notify_before,
