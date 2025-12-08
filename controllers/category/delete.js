@@ -3,12 +3,13 @@ const { STATUS_CODES } = require('../../shared/constants/statusCodes');
 const categoryService = require('../../services/category');
 
 async function deleteCategory(req, res, next) {
-    const payLoad = req.body;
-    if (!payLoad) {
-        return next(new APIError(STATUS_CODES.BAD_REQUEST, 'Request body is missing or empty'));
+    const category = req.query.category;
+
+    if (!category) {
+        return next(new APIError(STATUS_CODES.BAD_REQUEST, 'category name is missing'));
     }
     try {
-        await categoryService.deleteCategory(payLoad);
+        await categoryService.deleteCategory({ name: category });
         res.status(STATUS_CODES.CREATED).json({
             success: true,
             message: 'category deleted successfully'
