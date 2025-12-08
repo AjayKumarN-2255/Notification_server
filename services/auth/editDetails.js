@@ -21,7 +21,7 @@ async function editDetails(userId, payLoad) {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             throw new APIError(
-                STATUS_CODES.UNAUTHORIZED,
+                STATUS_CODES.BAD_REQUEST,
                 'Current password is incorrect'
             );
         }
