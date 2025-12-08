@@ -10,7 +10,7 @@ router
 
 router
     .route('/edit-details/:id')
-    .put(editDetails)
+    .patch(editDetails)
     .all(fourOhFiveHandler);
 
 router
