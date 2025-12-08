@@ -60,9 +60,11 @@ const notificationSchema = Joi.object({
             'any.required': 'Notify before is required'
         }),
     notify_user_list: Joi.array()
+        .min(1)
         .required()
         .messages({
             'array.base': 'notify_user_list must be an array',
+            'array.min': 'At least one user must be selected',
             'any.required': 'notify_user_list is required'
         })
 
