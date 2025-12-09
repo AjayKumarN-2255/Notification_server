@@ -40,8 +40,8 @@ function validateNotificationPayload(payload) {
         throw new APIError(STATUS_CODES.BAD_REQUEST, "Notification frequency cannot be greater than Notify before");
     }
 
-    if (!notification_date || new Date(notification_date) < new Date()) {
-        throw new APIError(STATUS_CODES.BAD_REQUEST, "Notification date must be in the future");
+    if (!notification_date) {
+        throw new APIError(STATUS_CODES.BAD_REQUEST, "Notification date required");
     }
 
     if (!frequency || frequency <= 0) {
