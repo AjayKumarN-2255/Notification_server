@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const User=require('./User');
+const User = require('./User');
 
 const NotificationSchema = new mongoose.Schema({
     user_id: {
@@ -64,7 +64,11 @@ const NotificationSchema = new mongoose.Schema({
     is_active: {
         type: Boolean,
         default: false
-    }
+    },
+    notify_channels: {
+        type: [String],
+        enum: ["email", "whatsapp"]
+    },
 }, {
     timestamps: true,
     id: false,

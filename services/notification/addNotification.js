@@ -15,7 +15,8 @@ async function addNotification(payLoad, userId) {
             notification_frequency,
             notify_before,
             notify_before_unit,
-            notific_gap_unit
+            notific_gap_unit,
+            notify_channels
         } = payLoad;
 
         const is_snoozed = false;
@@ -47,7 +48,8 @@ async function addNotification(payLoad, userId) {
             notification_frequency,
             last_notification_sent,
             is_snoozed,
-            is_active
+            is_active,
+            notify_channels
         });
 
         const savedNotification = await newNotification.save();

@@ -66,7 +66,17 @@ const notificationSchema = Joi.object({
             'array.base': 'notify_user_list must be an array',
             'array.min': 'At least one user must be selected',
             'any.required': 'notify_user_list is required'
-        })
+        }),
+    notify_channels: Joi.array()
+        .items(Joi.string().valid("email", "whatsapp"))
+        .min(1)
+        .required()
+        .messages({
+            'array.base': 'notify_channels must be an array',
+            'array.min': 'At least one notification channel must be selected',
+            'any.required': 'notify_channels is required',
+            'any.only': 'Invalid notification channel selected'
+        }),
 
 });
 
