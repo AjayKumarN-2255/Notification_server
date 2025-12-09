@@ -38,11 +38,12 @@ async function processNotification() {
                                     categories: noti.category_names,
                                 };
 
+                                console.log(noti.next_notification_date)
                                 const isLastDay = compateDatewithToday(noti.next_notification_date);
                                 if (!isLastDay) {
                                     data.next_notification_date = new Date(noti.next_notification_date).toDateString();
                                 }
-                                return await sendNotification(data, isLastDay, user.email, user.phone, user._id);
+                                return await sendNotification(data, isLastDay, noti.notify_channels, user.email, user.phone, user._id);
                             })
                         )
                     )

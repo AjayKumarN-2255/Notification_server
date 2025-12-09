@@ -83,7 +83,7 @@ async function fetchNotification(retries = 3, delay = 2000) {
                 ]
             }
         },
-            'title description category_names notify_user_list next_notification_date'
+            'title description category_names notify_user_list next_notification_date notify_channels'
         ).populate('notify_user_list', '_id username email phone').lean();
         return notifications;
     } catch (error) {
@@ -102,7 +102,7 @@ async function updateLastSendDate(notificIds, retries = 3, delay = 2000) {
     try {
         const today = new Date();
 
-        const result = await Notification.updateMany(
+        await Notification.updateMany(
             {
                 _id: { $in: notificIds }
             },
@@ -111,7 +111,7 @@ async function updateLastSendDate(notificIds, retries = 3, delay = 2000) {
             }
         );
 
-        console.log(`Matched: ${result.matchedCount}, Updated: ${result.modifiedCount}`);
+        console.log("last_notification_sent update successfully");
     } catch (error) {
         console.error('Error updating notifications:', error.message);
 
@@ -155,7 +155,7 @@ async function saveNotificationLogs(notificIds, nRes) {
 
             if (userRes.emailStatus === 'success') {
                 singleLog.mailSuccessUsers.push(userRes.userId);
-            } else {
+            } else if (userRes.emailStatus === 'failed') {
                 singleLog.mailFailedUsers.push({
                     userId: userRes.userId,
                     error: userRes.emailError
@@ -164,7 +164,7 @@ async function saveNotificationLogs(notificIds, nRes) {
 
             if (userRes.msgStatus === 'success') {
                 singleLog.msgSuccessUsers.push(userRes.userId);
-            } else {
+            } else if (userRes.msgStatus === 'failed') {
                 singleLog.msgFailedUsers.push({
                     userId: userRes.userId,
                     error: userRes.msgError
@@ -229,34 +229,36 @@ async function updateNotification(retries = 3, delay = 2000) {
 }
 
 
-async function sendNotification(data, isLastDay, email, phone, userId) {
+async function sendNotification(data, isLastDay, notify_channels, email, phone, userId) {
 
     const result = {
-        userId,
-        emailStatus: "success",
-        msgStatus: "success",
-        emailError: null,
-        msgError: null
+        userId
     }
 
-    try {
-        console.log("send email this time");
-        const emailRes = await sendMail(data, isLastDay, email);
-        console.log("email success:", emailRes);
-    } catch (error) {
-        console.log("email success:", false);
-        result.emailStatus = "Failed";
-        result.emailError = error.message;
+    if (notify_channels.includes("email")) {
+        try {
+            console.log("send email this time");
+            const emailRes = await sendMail(data, isLastDay, email);
+            result.emailStatus = "success";
+            console.log("email success:", emailRes);
+        } catch (error) {
+            console.log("email success:", false);
+            result.emailStatus = "failed";
+            result.emailError = error.message;
+        }
     }
 
-    try {
-        console.log("send message this time");
-        const msgRes = await sendMessage(data, isLastDay, phone);
-        console.log("message success:", msgRes);
-    } catch (error) {
-        console.log("message success:", false);
-        result.msgStatus = "Failed";
-        result.msgError = error.message;
+    if (notify_channels.includes("whatsapp")) {
+        try {
+            console.log("send message this time");
+            const msgRes = await sendMessage(data, isLastDay, phone);
+            result.msgStatus = "success";
+            console.log("message success:", msgRes);
+        } catch (error) {
+            console.log("message success:", false);
+            result.msgStatus = "failed";
+            result.msgError = error.message;
+        }
     }
 
     return result;

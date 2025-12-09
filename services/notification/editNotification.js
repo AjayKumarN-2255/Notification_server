@@ -19,19 +19,15 @@ async function editNotification(payLoad, userId, nId) {
             notify_channels
         } = payLoad;
 
-        const is_snoozed = false;
-        const is_active = true;
-        const last_notification_sent = null;
-        const next_notification_date = notification_date;
-
         const notification = await Notification.findOne({
             _id: nId,
             user_id: userId
         })
-
         if (!notification) {
             throw new APIError(STATUS_CODES.NOT_FOUND, "Notification does not exist");
         }
+
+        const next_notification_date = notification_date;
 
         validateNotificationPayload({
             notify_before,
@@ -57,9 +53,6 @@ async function editNotification(payLoad, userId, nId) {
                 notify_before_unit,
                 notific_gap_unit,
                 notification_frequency,
-                last_notification_sent,
-                is_snoozed,
-                is_active,
                 notify_channels
             },
             { new: true }
@@ -76,6 +69,7 @@ async function editNotification(payLoad, userId, nId) {
         return neededFields;
 
     } catch (error) {
+        console.log(error)
         if (error instanceof APIError) {
             throw error;
         }
